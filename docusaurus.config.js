@@ -71,8 +71,8 @@ const config = {
         },
         items: [
           {
-            label: "AA",
-            to: "/getting-started",
+            label: "增强组件",
+            to: "/common-starter",
             position: "left",
           },
           {
@@ -158,9 +158,9 @@ const config = {
     [
       "@docusaurus/plugin-content-docs",
       {
-        id: "getting-started",
-        path: "wiki/getting-started",
-        routeBasePath: "getting-started",
+        id: "common-starter",
+        path: "wiki/common-starter",
+        routeBasePath: "common-starter",
         sidebarPath: require.resolve("./sidebars.js"),
         editUrl: "https://git.7wate.com/zhouzhongping/wiki/src/branch/master",
         showLastUpdateAuthor: true,
