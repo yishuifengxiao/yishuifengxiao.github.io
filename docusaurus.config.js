@@ -6,8 +6,8 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "yishuifengxiao",
-  tagline: "Dinosaurs are cool",
+  title: "易水风萧",
+  tagline: "风萧萧兮易水寒，壮士一去兮不复还",
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
@@ -41,15 +41,13 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+          editUrl: "www.yishuifengxiao.com",
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+          editUrl: "www.yishuifengxiao.com",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -71,13 +69,13 @@ const config = {
         },
         items: [
           {
-            label: "增强组件",
-            to: "/common-starter",
+            label: "通用工具",
+            to: "/common-tool",
             position: "left",
           },
           {
-            label: "程序设计语言",
-            to: "/programming-language",
+            label: "增强组件",
+            to: "/common-starter",
             position: "left",
           },
           {
@@ -87,6 +85,7 @@ const config = {
           },
           {
             href: "https://github.com/facebook/docusaurus",
+            className: "header-github-link",
             label: "GitHub",
             position: "right",
           },
@@ -158,11 +157,24 @@ const config = {
     [
       "@docusaurus/plugin-content-docs",
       {
+        id: "common-tool",
+        path: "wiki/common-tool",
+        routeBasePath: "common-tool",
+        sidebarPath: require.resolve("./sidebars.js"),
+        editUrl: "http://www.yishuifengxiao.com",
+        showLastUpdateAuthor: true,
+        showLastUpdateTime: true,
+        breadcrumbs: false,
+      },
+    ],
+    [
+      "@docusaurus/plugin-content-docs",
+      {
         id: "common-starter",
         path: "wiki/common-starter",
         routeBasePath: "common-starter",
         sidebarPath: require.resolve("./sidebars.js"),
-        editUrl: "https://git.7wate.com/zhouzhongping/wiki/src/branch/master",
+        editUrl: "http://www.yishuifengxiao.com",
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
         breadcrumbs: false,
@@ -175,7 +187,7 @@ const config = {
         path: "wiki/programming-language",
         routeBasePath: "programming-language",
         sidebarPath: require.resolve("./sidebars.js"),
-        editUrl: "https://git.7wate.com/zhouzhongping/wiki/src/branch/master",
+        editUrl: "http://www.yishuifengxiao.com",
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
         breadcrumbs: false,
@@ -188,7 +200,7 @@ const config = {
         path: "wiki/structures-algorithms",
         routeBasePath: "structures-algorithms",
         sidebarPath: require.resolve("./sidebars.js"),
-        editUrl: "https://git.7wate.com/zhouzhongping/wiki/src/branch/master",
+        editUrl: "http://www.yishuifengxiao.com",
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
         breadcrumbs: false,

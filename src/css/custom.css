@@ -29,15 +29,38 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
-
-.navbar{
+.navbar {
   height: 60px;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
 }
 
-.navbar input{
+.navbar input {
   height: 30px;
   line-height: 30px;
   width: 250px;
+}
+
+.header-github-link {
+  font-size: 1.5rem;
+}
+
+.navbar__logo {
+  height: 3rem;
+}
+
+article {
+  font-size: 15px;
+}
+
+.theme-doc-sidebar-container {
+  font-size: 16px;
+}
+
+.theme-doc-toc-desktop {
+  float: right;
+}
+
+.table-of-contents {
+  font-size: 14px !important;
 }
