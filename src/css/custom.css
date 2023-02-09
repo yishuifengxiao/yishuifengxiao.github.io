@@ -64,3 +64,8 @@ article {
 .table-of-contents {
   font-size: 14px !important;
 }
+
+code {
+  border: #DADDE1 dashed thin !important;
+  margin-bottom: 30px !important;
+}
