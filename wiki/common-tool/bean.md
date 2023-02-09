@@ -11,7 +11,7 @@ authors:
 
 ---
 
-------
+
 
 
 
@@ -31,7 +31,7 @@ authors:
 - 将Map转成指定的JavaBean对象
 - 将java对象转换为Map
 
-使用示例
+**使用示例**
 
 通用对象
 
@@ -101,7 +101,13 @@ BeanUtilTest.User(name=aaa, age=13)
         // 输出为 {name=aaa, age=13}
 ```
 
+### 5 map转对象
 
+```
+       User user = new User("aaa", 13);
+        final Map map = BeanUtil.beanToMap(user);
+        System.out.println(BeanUtil.mapToBean(map,User.class));
+```
 
 
 

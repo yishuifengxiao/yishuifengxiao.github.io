@@ -66,6 +66,25 @@ article {
 }
 
 code {
-  border: #DADDE1 dashed thin !important;
+  border: #dadde1 dashed thin !important;
   margin-bottom: 30px !important;
+}
+
+blockquote {
+  background-color: #ebedf0 !important;
+  padding: 10px !important;
+  font-weight: 900 !important;
+  color: green !important;
+}
+
+h2 {
+  margin: 50px auto 30px !important;
+  color: #3ecc5f !important;
+}
+h3 {
+  margin: 40px auto 10px !important;
+  color: purple !important;
+}
+h1 {
+  display: none !important;
 }
