@@ -49,6 +49,26 @@
   height: 3rem;
 }
 
+.theme-doc-sidebar-menu {
+  padding-left: 20px;
+  font-size: 1.8rem !important;
+}
+
+.theme-doc-sidebar-menu > li > a {
+  padding: 10px !important;
+  font-size: 18px !important;
+}
+
+.theme-doc-sidebar-menu > li > div > a {
+  padding: 10px !important;
+  font-size: 18px !important;
+}
+
+.theme-doc-sidebar-menu > li > ul > li > a {
+  padding: 10px !important;
+  font-size: 18px !important;
+}
+
 article {
   font-size: 15px;
 }
