@@ -61,6 +61,9 @@ const config = {
     ({
       // Replace with your project's social card
       image: "img/docusaurus-social-card.jpg",
+      prism: {
+        additionalLanguages: ["powershell", "java"],
+      },
       navbar: {
         title: "易水风萧",
         logo: {

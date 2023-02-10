@@ -68,6 +68,11 @@ article {
 code {
   border: #dadde1 dashed thin !important;
   margin-bottom: 30px !important;
+  background-color: #dadde1 !important;
+}
+
+td > code {
+  border: none !important;
 }
 
 blockquote {
