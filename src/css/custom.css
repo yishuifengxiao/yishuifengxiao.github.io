@@ -73,6 +73,7 @@ code {
 
 td > code {
   border: none !important;
+  background-color: white !important;
 }
 
 blockquote {
@@ -92,4 +93,8 @@ h3 {
 }
 h1 {
   display: none !important;
+}
+
+article .markdown ul {
+  margin-left: 8rem;
 }

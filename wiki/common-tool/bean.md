@@ -121,5 +121,70 @@ BeanUtilTest.User(name=aaa, age=13)
 
 ## class 工具
 
+该工具的主要目的是使用反射获取java对象和class中的信息
 
+>  该工具是一个线程安全类的工具
+
+主要功能如下:
+
+- 获取class中所有的字段和属性
+- 根据属性名字获取对象里对应属性的值
+- 遍历对象所有的属性和值
+
+示例如下
+
+### 1 获取class中所有的字段和属性
+
+
+
+```java
+//提取出一个类里所有的属性字段(包括父类里的属性字段)
+final List<Field> fields = ClassUtil.fields(BeanUtilTest.User.class);
+System.out.println(fields);
+//提取出一个类里所有的属性字段(包括父类里的属性字段,但是不包含被特殊修饰的字段
+final List<Field> fields1 = ClassUtil.fields(BeanUtilTest.User.class, true);
+System.out.println(fields1);
+```
+
+输出结果：
+
+```bash
+[private java.lang.String com.yishuifengxiao.common.tool.bean.BeanUtilTest$User.name, 
+
+private java.lang.Integer com.yishuifengxiao.common.tool.bean.BeanUtilTest$User.age]
+```
+
+### 2 根据属性名字获取对象里对应属性的值
+
+```java
+        BeanUtilTest.User user = new BeanUtilTest.User("aaa", 13);
+
+        Object name = ClassUtil.extractValue(user, "name");
+        Object age = ClassUtil.extractValue(user, "age");
+
+        System.out.println("name = " + name + " age = " + age);
+```
+
+输出如下：
+
+```bash
+name = aaa age = 13
+```
+
+### 3 遍历对象所有的属性和值
+
+```java
+        BeanUtilTest.User user = new BeanUtilTest.User("aaa", 13);
+
+        ClassUtil.forEach(user, (k, v) -> {
+            System.out.println("属性 = " + k + " 属性值 =" + v);
+        });
+```
+
+输出结果为:
+
+```bash
+属性 = private java.lang.String com.yishuifengxiao.common.tool.bean.BeanUtilTest$User.name 属性值 =aaa
+属性 = private java.lang.Integer com.yishuifengxiao.common.tool.bean.BeanUtilTest$User.age 属性值 =13
+```
 
