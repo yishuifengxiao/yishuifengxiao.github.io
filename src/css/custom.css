@@ -98,3 +98,14 @@ h1 {
 article .markdown ul {
   margin-left: 8rem;
 }
+
+.task-list-item p {
+  color: red;
+  font-weight: 900;
+  font-size: 1.8rem;
+}
+
+strong {
+  font-size: 2rem;
+  font-weight: 900;
+}
