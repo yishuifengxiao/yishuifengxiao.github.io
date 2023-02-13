@@ -1,9 +1,10 @@
 ---
 sidebar_position: 1
-title: 单点登录
+title: 快速启动
 ---
+使用 spring social 功能首先需要开启 spring security 的相关功能。
 
-# 单点登录
+
 
 如今，随着互联网技术的发展，网络用户规模越来越大，假如公司的每一个应用都建立一个用户系统，不仅极大的增加了开发的工作量，而且容易形成了信息孤岛，用户在使用公司的每个产品时都需要重复注册一次。因此许多公司为了统一管理，建立了统一认证中心，其他的应用需要通过单点登录即可获取用户信息，用户登录该公司的其他应用时也不需要在重新注册，大大节省公司用户导入成本，也提高用户使用体验。
 
@@ -20,7 +21,7 @@ title: 单点登录
 
 完整的pom文件内容如下：
 
-```xml
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -61,8 +62,6 @@ title: 单点登录
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-
-
     </dependencies>
 
     <build>
@@ -83,33 +82,28 @@ title: 单点登录
 
 
 
-```yaml
-spring:
-  security:
-    oauth2:
-      client:
-        provider:
-          yishui:
-          # 授权服务器的authorization地址
-            authorization-uri: http://192.168.0.172:8000/oauth/authorize
-            # 授权服务器获取token的地址
-            token-uri: http://192.168.0.172:8000/oauth/token
-            # 授权服务器中获取登录用户信息的地址
-            user-info-uri: http://192.168.0.172:8000/me
-            #定值，必须配置，否则会出错
-            user-name-attribute: userAuthentication
-        registration:
-          yishui:
-          	# 这里是定值为authorization_code，表示使用授权码模式模式从授权服务器中获取token
-            authorization-grant-type: authorization_code
-            client-id: zhiyubujian # 该用户对应的clientId
-            client-name: custom # 登录界面上显示的登录类型的名字，可不填
-            client-secret: zhiyubujian  # 该用户对应的clientSecret
-            provider: yishui
-            # 回调地址，应该和授权服务器中登记的回调地址一模一样，否则会出错，支持通配符，也可以想下面那样配置为完整的地址
-            #spring.security.oauth2.client.registration.yishui.redirect-uri=http://192.168.0.172:8006/oauth2/code
-            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+```
+spring.security.oauth2.client.registration.yishui.provider=yishui
+# 登录界面上显示的登录类型的名字，可不填
+spring.security.oauth2.client.registration.yishui.client-name=custom
+# 该用户对应的clientId
+spring.security.oauth2.client.registration.yishui.client-id=zhiyubujian
+# 该用户对应的clientSecret
+spring.security.oauth2.client.registration.yishui.client-secret=zhiyubujian
+# 这里是定值为authorization_code，表示使用授权码模式模式从授权服务器中获取token
+spring.security.oauth2.client.registration.yishui.authorization-grant-type=authorization_code
+# 回调地址，应该和授权服务器中登记的回调地址一模一样，否则会出错，支持通配符，也可以想下面那样配置为完整的地址
+spring.security.oauth2.client.registration.yishui.redirect-uri={baseUrl}/login/oauth2/code/{registrationId}
+#spring.security.oauth2.client.registration.yishui.redirect-uri=http://192.168.0.172:8006/oauth2/code
 
+# 授权服务器的authorization地址
+spring.security.oauth2.client.provider.yishui.authorization-uri=http://192.168.0.172:8000/oauth/authorize
+# 授权服务器获取token的地址
+spring.security.oauth2.client.provider.yishui.token-uri=http://192.168.0.172:8000/oauth/token
+# 授权服务器中获取登录用户信息的地址
+spring.security.oauth2.client.provider.yishui.user-info-uri=http://192.168.0.172:8000/me
+#定值，必须配置，否则会出错
+spring.security.oauth2.client.provider.yishui.user-name-attribute=userAuthentication
 ```
 
 注意：
@@ -171,7 +165,7 @@ public class DemoApplication {
 例如当我们想要访问 `http://localhost:8080/me` 时，系统会重定向到到默认的登录页面
 ![登录页面](http://static.yishuifengxiao.com/images/login.png)
 
-> 注意：这里显示的是默认的登录页面，如果用户想要显示自定义登录界面，可以参见 [公共组件](http://doc.yishuifengxiao.com/security.html#%E7%99%BB%E9%99%86%E8%A1%A8%E5%8D%95%E9%85%8D%E7%BD%AE)里面的相关章节进行修改和美化。
+> 注意：这里显示的是默认的登录页面，如果用户想要显示自定义登录界面，可以参见 [易水公共组件](http://doc.yishuifengxiao.com/security.html#%E7%99%BB%E9%99%86%E8%A1%A8%E5%8D%95%E9%85%8D%E7%BD%AE)里面的相关章节进行修改和美化。
 
 点击上面的登录链接，会跳转到授权服务器的登录页面
 
