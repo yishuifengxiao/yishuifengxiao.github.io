@@ -3,6 +3,14 @@ sidebar_position: 2
 title: 快速入门
 ---
 
+ 
+
+协议官方定义文档
+
+OAuth 2.0 Authorization Server Metadata https://www.rfc-editor.org/rfc/rfc8414#section-3
+
+The OAuth 2.1 Authorization Framework https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-07#section-1.1
+
 ## 一 加入依赖
 
 >  该功能基于`spring-security-oauth2-autoconfigure`扩展而来，在当前版本中，所有此依赖功能的代码被标注为`@Deprecated`,新版功能可参见 https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide ，但是新版需要较高版本的spring ，与较低版本的springboot不能兼容，故此增强扩展的目的是在低版本的springboot下能够允许
