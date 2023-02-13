@@ -55,6 +55,15 @@ public class CustomeUserDetailsServiceImpl implements UserDetailsService {
 }
 ```
 
+在默认情况下，组件使用的`DES`进行加密操作，如需要实现自定义加密，可以进行以下配置：
+
+```java
+@Bean
+public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+}
+```
+
 ## 过滤器链表
 
 以下是Spring Security过滤器顺序的完整列表：

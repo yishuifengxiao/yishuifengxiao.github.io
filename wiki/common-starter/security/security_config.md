@@ -111,8 +111,6 @@ yishuifengxiao.security.resource.customs[1]=/ccc,/dd
 ```java
 @Component("customResourceProvider")
 public class SimpleCustomResourceProvider implements CustomResourceProvider {
-
-
    @Override
    public boolean hasPermission(HttpServletRequest request, Authentication auth) {
       log.debug("【自定义授权】自定义授权的路径为 {}，认证信息为 {}  ", request.getRequestURI(), auth);
@@ -126,6 +124,8 @@ public class SimpleCustomResourceProvider implements CustomResourceProvider {
 ## 三 基础配置
 
 ###   2.1 简单使用
+
+#### 2.1.1 生成token
 
 在默认情况下，组件会根据请求判断是否请求的类型，当请求为json类型的请求时直接输出对应的信息，否则会重定向到配置的路径。其中重定向的路径的配置如下:
 
@@ -181,23 +181,48 @@ curl --location --request POST 'http://localhost:8080/web/login' \
 }
 ```
 
-其中的value即为所需的token。在得到所需的token信息后，当用户访问所有需要鉴权的资源时，可以在请求头或者请求参数中携带上此token值即可。携带token值得请求头的名字和携带token值得请求参数的名字可以通配置进行改变，默认配置如下：
+其中的value即为所需的token。
+
+#### 2.1.2 使用token
+
+在得到所需的token信息后，当用户访问所有需要鉴权的资源时，可以在请求头或者请求参数中携带上此token值即可。携带token值得请求头的名字和携带token值得请求参数的名字可以通配置进行改变，默认配置如下：
 
 ```properties
 #从请求头里取出认证信息时的参数名，默认为 xtoken
-yishuifengxiao.security.token.header-paramter=xtoken
+yishuifengxiao.security.token.header-parameter=xtoken
 #从请求参数里取出认证信息时的参数名，默认为 xtoken 
-yishuifengxiao.security.token.request-paramter=xtoken
+yishuifengxiao.security.token.request-parameter=xtoken
 ```
 
 注意：在若在请求头和请求参数中均为获取到token信息时，组件还会默认从session中尝试获取token值，从session中获取数据的key的配置可以修改
 
 ```properties
 #用户唯一标识符参数，默认为user_unique_identitier
-yishuifengxiao.security.token.user-unique-identitier=默认为user_unique_identitier
+yishuifengxiao.security.token.user-unique-identitier=user_unique_identitier
 ```
 
+>  注意点：提取token值依次从请求头、请求参数和session中获取，只要在前一种方式中获取到就不会尝试下一种（此时不会校验token值得正确性）
+
+
+
+使用token的请求示例如下：
+
+```bash
+curl --location --request GET 'http://localhost:8080/user/find?xtoken=60C45471AF39D9C3726150DEF5513E69184205C922B4670E4EB79EB3748E6F585F06ADCA94688AE406DFE549FF29E182A831DDC995A98489'
+```
+
+或者
+
+```bash
+curl --location --request GET 'http://localhost:8080/user/find' \
+--header 'xtoken: 60C45471AF39D9C3726150DEF5513E69184205C922B4670E4EB79EB3748E6F585F06ADCA94688AE406DFE549FF29E182A831DDC995A98489'
+```
+
+
+
 ### 2.2 进阶使用
+
+#### 2.2.1 基础进阶
 
 在一般情况下，组件的默认配置往往不能满足多变的业务需求，此时可以在系统中注入一个SecurityHandler的实例来根据业务需求进行定制，简单的示例如下：
 
@@ -235,3 +260,206 @@ public class SimpleSecurityHandler extends BaseSecurityHandler {
     }
 }
 ```
+
+#### 2.2.2 短信验证码登录
+
+验证码的使用参见前述章节
+
+```properties
+#短信登陆参数,默认为 mobile 
+yishuifengxiao.security.code.sms-login-param=mobile
+#短信验证码登录地址
+yishuifengxiao.security.code.sms-login-url=/web/sms_login
+```
+
+完成上述配置后，即可开启短信验证码登录功能。
+
+#### 2.2.3 验证码使用
+
+按照前述章节配置好验证码之后。即可将spring security与验证码功能结合起来。在项目里加上配置
+
+```properties
+#key：验证码类型的名字（可选值：SMS，IMAGE，EMAIL）, value: 需要过滤的路径，多个路径采用半角的逗号分隔
+yishuifengxiao.security.code.filter.image=/aaa,/bb
+```
+
+### 2.3 高级使用
+
+#### 2.3.1 自定义过滤器
+
+在spring security 过滤器链中插入一个过滤器。
+
+在spring 上下文中注入一个`com.yishuifengxiao.common.security.httpsecurity.SecurityRequestFilter`的实例即可，配置完成后在`public void configure(HttpSecurity http) throws Exception`中配置好过滤器生效位置即可。
+
+示例代码如下：
+
+```java
+@Component
+public class UsernamePasswordPreAuthFilter extends SecurityRequestFilter {
+
+    private AntPathRequestMatcher pathMatcher = null;
+
+    private SecurityHandler securityHandler;
+
+    private UserDetailsService userDetailsService;
+
+    private PasswordEncoder passwordEncoder;
+
+    private PropertyResource propertyResource;
+
+    /**
+     * 信息提取器
+     */
+    private SecurityValueExtractor securityValueExtractor;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        // 是否关闭前置参数校验功能
+        Boolean closePreAuth = propertyResource.security().getClosePreAuth();
+        if (BooleanUtils.isNotTrue(closePreAuth)) {
+            AntPathRequestMatcher pathMatcher = this.antPathMatcher();
+            if (pathMatcher.matches(request)) {
+
+                String username = securityValueExtractor.extractUsername(request, response);
+                String password = securityValueExtractor.extractPassword(request, response);
+
+                if (username == null) {
+                    username = "";
+                }
+                if (password == null) {
+                    password = "";
+                }
+
+                username = username.trim();
+
+                try {
+                    // 获取认证信息
+                    try {
+                        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                        if (null == userDetails) {
+                            throw new CustomException(ErrorCode.USERNAME_NO_EXTIS,
+                                    propertyResource.security().getMsg().getAccountNoExtis());
+                        }
+                        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+                            throw new CustomException(ErrorCode.PASSWORD_ERROR,
+                                    propertyResource.security().getMsg().getPasswordIsError());
+                        }
+                    } catch (UsernameNotFoundException ex) {
+                        throw new CustomException(ErrorCode.USERNAME_NO_EXTIS,
+                                propertyResource.security().getMsg().getAccountNoExtis());
+                    }
+                } catch (Exception exception) {
+                    securityHandler.whenAuthenticationFailure(propertyResource, request, response, exception);
+                    return;
+                }
+
+            }
+        }
+
+        filterChain.doFilter(request, response);
+    }
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.addFilterBefore(this, UsernamePasswordAuthenticationFilter.class);
+
+    }
+
+    /**
+     * 获取到路径匹配器
+     *
+     * @return 路径匹配器
+     */
+    private AntPathRequestMatcher antPathMatcher() {
+        if (null == this.pathMatcher) {
+            this.pathMatcher = new AntPathRequestMatcher(this.propertyResource.security().getFormActionUrl());
+        }
+        return this.pathMatcher;
+    }
+
+    // @formatter:off
+    public UsernamePasswordPreAuthFilter(SecurityHandler securityHandler,
+                                         UserDetailsService userDetailsService,
+                                         PasswordEncoder passwordEncoder,
+                                         PropertyResource propertyResource,
+                                         SecurityValueExtractor securityValueExtractor) {
+        this.securityHandler = securityHandler;
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+        this.propertyResource = propertyResource;
+        this.securityValueExtractor = securityValueExtractor;
+    }
+    // @formatter:on
+}
+```
+
+#### 2.3.2 自定义授权配置
+
+主要用于在`HttpSecurity http`上进行各项授权配置。只需要在spring 上下文中注入`AuthorizeProvider`实例即可。`AuthorizeProvider`的定义如下：
+
+```java
+public interface AuthorizeProvider {
+
+    /**
+     * 授权配置
+     *
+     * @param propertyResource               授权资源
+     * @param  securityHandler 用于在各种 Handler 中根据情况相应地跳转到指定的页面或者输出json格式的数据
+     * @param http HttpSecurity
+     * @throws Exception 配置时出现问题
+     */
+    void apply(PropertyResource propertyResource, SecurityHandler securityHandler, HttpSecurity http) throws Exception;
+
+    /**
+     * 授权提供器的顺序，数字越小越是提前使用，默认值为100
+     *
+     * @return 授权提供器的顺序
+     */
+    default int order() {
+        return 100;
+    }
+}
+```
+
+一个简单的示例代码如下:
+
+```java
+public class ExceptionAuthorizeProvider implements AuthorizeProvider {
+
+
+    @Override
+    public void apply(PropertyResource propertyResource, SecurityHandler securityHandler, HttpSecurity http) throws Exception {
+        //@formatter:off
+        http.exceptionHandling()
+      // 定义的不存在access_token时候响应
+      .authenticationEntryPoint(securityHandler).accessDeniedHandler(securityHandler)
+      //自定义权限拒绝处理器
+      ;
+      //@formatter:on  
+    }
+
+    @Override
+    public int order() {
+        return 1000;
+    }
+}
+```
+
+
+
+#### 2.3.3 token生成工具
+
+API列表如下:
+
+| **限定符和类型**       | **方法和说明**                                               |
+| ---------------------- | ------------------------------------------------------------ |
+| static SecurityToken | create(javax.servlet.http.HttpServletRequest request, String username, String password)生成一个令牌 |
+| static SecurityToken | create(String username, String password)生成一个令牌       |
+| static SecurityToken | create(String username, String password, String sessionId)生成一个令牌 |
+| static SecurityToken | createUnsafe(javax.servlet.http.HttpServletRequest request, String username)生成一个令牌 |
+| static SecurityToken | createUnsafe(javax.servlet.http.HttpServletRequest request, String username, int validSeconds)生成一个令牌 |
+| static SecurityToken |createUnsafe(String username)生成一个令牌                  |
+| static SecurityToken | createUnsafe(String username, int validSeconds)生成一个令牌 |
+| static SecurityToken | createUnsafe(String username, String sessionId)生成一个令牌 |
+|static SecurityToken | createUnsafe(String username, String sessionId, int validSeconds)生成一个令牌 |

@@ -64,6 +64,10 @@ const config = {
       prism: {
         additionalLanguages: ["powershell", "java"],
       },
+      tableOfContents: {
+        minHeadingLevel: 2,
+        maxHeadingLevel: 5,
+      },
       navbar: {
         title: "易水风萧",
         logo: {
@@ -177,7 +181,7 @@ const config = {
         path: "wiki/common-starter",
         routeBasePath: "common-starter",
         sidebarPath: require.resolve("./sidebars.js"),
-        editUrl: "http://www.yishuifengxiao.com",
+        // editUrl: "http://www.yishuifengxiao.com",
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
         breadcrumbs: false,
@@ -190,7 +194,6 @@ const config = {
         path: "wiki/programming-language",
         routeBasePath: "programming-language",
         sidebarPath: require.resolve("./sidebars.js"),
-        editUrl: "http://www.yishuifengxiao.com",
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
         breadcrumbs: false,
@@ -203,7 +206,7 @@ const config = {
         path: "wiki/structures-algorithms",
         routeBasePath: "structures-algorithms",
         sidebarPath: require.resolve("./sidebars.js"),
-        editUrl: "http://www.yishuifengxiao.com",
+        // editUrl: "http://www.yishuifengxiao.com",
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
         breadcrumbs: false,
