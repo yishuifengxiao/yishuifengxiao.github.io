@@ -40,7 +40,7 @@ spring:
           github:
             client-id: {custom}
             client-secret: {custom}
-            redirect-uri-template: "{baseUrl}/register/social/{registrationId}"
+            redirect-uri: "{baseUrl}/oauth2/authorization/{registrationId}"
           qq:
             client-id: {custom appId}
             client-secret: {custom appKey}
@@ -49,7 +49,7 @@ spring:
             authorization-grant-type: authorization_code
             client-authentication-method: post
             scope: get_user_info,list_album,upload_pic,do_like
-            redirect-uri-template: "{baseUrl}/register/social/{registrationId}"
+            redirect-uri: "{baseUrl}/oauth2/authorization/{registrationId}"
         provider:
           qq:
             authorization-uri: https://graph.qq.com/oauth2.0/authorize
@@ -58,6 +58,8 @@ spring:
             user-info-uri: https://graph.qq.com/oauth2.0/me
             user-name-attribute: "nickname"
 ```
+
+> `redirect-uri-template`是 `redirect-uri` 的别名(它们是相同的变量)。
 
 上面的配置同时支持了Github和QQ登录。
 
@@ -81,6 +83,8 @@ login.html则是我们自定义的登录页面：
     </body>
 </html>
 ```
+
+此时访问 http://localhost:8080/oauth2/authorization/qq 的效果也是一样
 
 ## 基础使用
 

@@ -396,6 +396,8 @@ public class QQSocialProvider implements SocialProvider {
 
 每个OAuth客户端的链接目标默认如下：
 
+默认的配置值为`  /oauth2/authorization/{registrationId}`
+
 ```bash
 OAuth2AuthorizationRequestRedirectFilter.DEFAULT_AUTHORIZATION_REQUEST_BASE_URI + "/{registrationId}"
 ```
@@ -432,6 +434,8 @@ public class OAuth2LoginSecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
+这里的`authorizationEndpoint().baseUri()`的配置值与接入配置中的`spring.security.oauth2.client.registration.qq.redirect-uri={baseUrl}/oauth2/authorization/{registrationId}` 的值相关
+
 如前所述，配置`oauth2Login().authorizationEndpoint().baseUri()`是可选的。但是，如果您选择自定义它，请确保指向每个OAuth客户端的链接与`authorizationEndpoint().baseUri()`相匹配
 
 以下行显示了一个示例：
@@ -446,7 +450,7 @@ public class OAuth2LoginSecurityConfig extends WebSecurityConfigurerAdapter {
 
 >  OAuth 2.0登录利用授权代码授予。因此，授权凭证就是授权代码。
 
-The default Authorization Response `baseUri` (redirection endpoint) is `**/login/oauth2/code/***`, which is defined in `OAuth2LoginAuthenticationFilter.DEFAULT_FILTER_PROCESSES_URI`.
+The default Authorization Response `baseUri` (redirection endpoint) is `/login/oauth2/code/`, which is defined in `OAuth2LoginAuthenticationFilter.DEFAULT_FILTER_PROCESSES_URI`.
 
 如果要自定义授权响应baseUri，请按以下示例所示进行配置：
 
@@ -476,5 +480,27 @@ return CommonOAuth2Provider.GOOGLE.getBuilder("google")
     .redirectUri("{baseUrl}/login/oauth2/callback/{registrationId}")
     .build();
 ```
+
+## 8 配置属性
+
+| Spring Boot 2.x                                              | ClientRegistration                                      |
+| :----------------------------------------------------------- | :------------------------------------------------------ |
+| `spring.security.oauth2.client.registration.*[registrationId]*` | `registrationId`                                        |
+| `spring.security.oauth2.client.registration.*[registrationId]*.client-id` | `clientId`                                              |
+| `spring.security.oauth2.client.registration.*[registrationId]*.client-secret` | `clientSecret`                                          |
+| `spring.security.oauth2.client.registration.*[registrationId]*.client-authentication-method` | `clientAuthenticationMethod`                            |
+| `spring.security.oauth2.client.registration.*[registrationId]*.authorization-grant-type` | `authorizationGrantType`                                |
+| `spring.security.oauth2.client.registration.*[registrationId]*.redirect-uri` | `redirectUri`                                           |
+| `spring.security.oauth2.client.registration.*[registrationId]*.scope` | `scopes`                                                |
+| `spring.security.oauth2.client.registration.*[registrationId]*.client-name` | `clientName`                                            |
+| `spring.security.oauth2.client.provider.*[providerId]*.authorization-uri` | `providerDetails.authorizationUri`                      |
+| `spring.security.oauth2.client.provider.*[providerId]*.token-uri` | `providerDetails.tokenUri`                              |
+| `spring.security.oauth2.client.provider.*[providerId]*.jwk-set-uri` | `providerDetails.jwkSetUri`                             |
+| `spring.security.oauth2.client.provider.*[providerId]*.issuer-uri` | `providerDetails.issuerUri`                             |
+| `spring.security.oauth2.client.provider.*[providerId]*.user-info-uri` | `providerDetails.userInfoEndpoint.uri`                  |
+| `spring.security.oauth2.client.provider.*[providerId]*.user-info-authentication-method` | `providerDetails.userInfoEndpoint.authenticationMethod` |
+| `spring.security.oauth2.client.provider.*[providerId]*.user-name-attribute` | providerDetails.userInfoEndpoint.userNameAttributeName  |
+
+通过指定`spring.security.oauth2.client.Provider.[providerId].pissuer-uri`属性，可以使用OpenID连接提供程序的配置端点或授权服务器的元数据端点的发现来初始配置ClientRegistration。
 
 更多问题 参见 https://docs.spring.io/spring-security/site/docs/5.5.8/reference/html5/#oauth2login
