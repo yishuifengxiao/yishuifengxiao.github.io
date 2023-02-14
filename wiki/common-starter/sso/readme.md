@@ -504,3 +504,31 @@ return CommonOAuth2Provider.GOOGLE.getBuilder("google")
 通过指定`spring.security.oauth2.client.Provider.[providerId].pissuer-uri`属性，可以使用OpenID连接提供程序的配置端点或授权服务器的元数据端点的发现来初始配置ClientRegistration。
 
 更多问题 参见 https://docs.spring.io/spring-security/site/docs/5.5.8/reference/html5/#oauth2login
+
+## 9 自定义第三方认证登录示例
+
+```yaml
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          demo:
+            authorization-uri: https://192.168.171.134:8000/oauth2.0/authorize
+            token-uri: https://192.168.171.134:8000/oauth2.0/token
+            user-info-uri: https://192.168.171.134:8000/oauth2.0/me
+            user-name-attribute: nickname
+        registration:
+          demo:
+            authorization-grant-type: authorization_code
+            client-authentication-method: post
+            client-id: custom appId
+            client-name: QQ??
+            client-secret: custom appKey
+            provider: demo
+            redirect-uri: '{baseUrl}/oauth2/authorization/{registrationId}'
+            scope: get_user_info,list_album,upload_pic,do_like
+
+```
+
+然后访问 http://localhost:8080/oauth2/authorization/demo
