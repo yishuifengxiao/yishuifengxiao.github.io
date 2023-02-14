@@ -65,6 +65,8 @@ title: 过滤器链
 15. org.springframework.security.web.access.ExceptionTranslationFilter@1c067c0d,
 16. org.springframework.security.web.access.intercept.FilterSecurityInterceptor@59939293
 
+![360截图179812037710682](https://zhiyubujian.oss-cn-hangzhou.aliyuncs.com/blog/360%E6%88%AA%E5%9B%BE179812037710682.jpg)
+
 
 
 ## 三 认证服务器过滤器链
@@ -137,3 +139,40 @@ title: 过滤器链
 15. org.springframework.security.web.session.SessionManagementFilter@48904d5a, 
 16. org.springframework.security.web.access.ExceptionTranslationFilter@67cefd84, 
 17. org.springframework.security.web.access.intercept.FilterSecurityInterceptor@39909d1a
+
+五自定义oauth2-clien滤器链
+
+```xml
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>    
+<dependency>
+            <groupId>com.yishuifengxiao.common</groupId>
+            <artifactId>common-spring-boot-starter</artifactId>
+            <version>${common-sarter.version}</version>
+        </dependency>    
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-oauth2-client</artifactId>
+    </dependency>
+```
+
+1. org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1d2fb82,
+2. org.springframework.security.web.context.SecurityContextPersistenceFilter@102c18e, 
+3. org.springframework.security.web.header.HeaderWriterFilter@74ba6ff5,
+4. com.yishuifengxiao.common.security.httpsecurity.filter.TokenValidateFilter@1cdc1bbc,
+5. org.springframework.security.web.authentication.logout.LogoutFilter@2bebd114, 
+6. org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@b379bc6,
+7. org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@374c40ba,
+8. com.yishuifengxiao.common.security.httpsecurity.filter.UsernamePasswordPreAuthFilter@1bb740f2,
+9. org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@18dcb8a7,
+10. org.springframework.security.web.session.ConcurrentSessionFilter@7a84788f, 
+11. org.springframework.security.web.authentication.www.BasicAuthenticationFilter@5a14e60d, 
+12. org.springframework.security.web.savedrequest.RequestCacheAwareFilter@26e0d39c,
+13. org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@65eb3597,
+14. org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter@6dcab9d9,
+15. org.springframework.security.web.authentication.AnonymousAuthenticationFilter@34045582, 
+16. org.springframework.security.web.session.SessionManagementFilter@395f52ed,
+17. org.springframework.security.web.access.ExceptionTranslationFilter@53a50b0a, 
+18. org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5a4dda2
