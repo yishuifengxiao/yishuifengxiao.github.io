@@ -86,12 +86,12 @@ const config = {
             position: "left",
           },
           {
-            label: "数据结构与算法",
-            to: "/structures-algorithms",
-            position: "left",
+            label: "个人博客",
+            href: "http://www.yishuifengxiao.com/",
+            position: "right",
           },
           {
-            href: "https://github.com/facebook/docusaurus",
+            href: "https://github.com/yishuifengxiao/",
             className: "header-github-link",
             label: "GitHub",
             position: "right",
@@ -128,7 +128,7 @@ const config = {
               },
               {
                 label: "GitHub",
-                href: "https://github.com/facebook/docusaurus",
+                href: "https://github.com/yishuifengxiao/",
               },
             ],
           },
