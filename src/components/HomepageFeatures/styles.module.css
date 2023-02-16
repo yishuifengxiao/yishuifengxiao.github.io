@@ -9,3 +9,10 @@
   height: 200px;
   width: 200px;
 }
+
+.tip {
+  padding-top: 3rem;
+  text-align: center;
+  font-size: 3rem;
+  color: grey;
+}
