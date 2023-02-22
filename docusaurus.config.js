@@ -86,6 +86,11 @@ const config = {
             position: "left",
           },
           {
+            label: "代码片段",
+            to: "/code-snippet",
+            position: "left",
+          },
+          {
             label: "个人博客",
             href: "http://www.yishuifengxiao.com/",
             position: "right",
@@ -194,9 +199,9 @@ const config = {
     [
       "@docusaurus/plugin-content-docs",
       {
-        id: "structures-algorithms",
-        path: "wiki/structures-algorithms",
-        routeBasePath: "structures-algorithms",
+        id: "code-snippet",
+        path: "wiki/code-snippet",
+        routeBasePath: "code-snippet",
         sidebarPath: require.resolve("./sidebars.js"),
         // editUrl: "http://www.yishuifengxiao.com",
         showLastUpdateAuthor: true,
