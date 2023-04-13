@@ -30,6 +30,8 @@ public class SecurityCoreConfig extends AbstractSecurityConfig {
 }
 ```
 
+==**在 6.0.x之后的版本中，不再需要上述配置**==
+
 即可开启增强功能，此时项目使用默认配置，所有密码为 12345678 的账号都能通过鉴权 ，如需设置自定义账号密码，可以在项目中加入以下代码
 
 ```java
@@ -101,3 +103,35 @@ public PasswordEncoder passwordEncoder() {
 - [`ExceptionTranslationFilter`(opens new window)](https://docs.spring.io/spring-security/site/docs/5.3.5.RELEASE/reference/html5/#servlet-exceptiontranslationfilter)
 - [`FilterSecurityInterceptor`(opens new window)](https://docs.spring.io/spring-security/site/docs/5.3.5.RELEASE/reference/html5/#servlet-authorization-filtersecurityinterceptor)
 - SwitchUserFilter
+
+------
+
+spring security 2.7 之后的过滤器列表如下
+
+- `CorsFilter`
+- `CsrfFilter`
+- `LogoutFilter`
+- `OAuth2AuthorizationRequestRedirectFilter`
+- `Saml2WebSsoAuthenticationRequestFilter`
+- `X509AuthenticationFilter`
+- `AbstractPreAuthenticatedProcessingFilter`
+- `CasAuthenticationFilter`
+- `OAuth2LoginAuthenticationFilter`
+- `Saml2WebSsoAuthenticationFilter`
+- [`UsernamePasswordAuthenticationFilter`](https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/form.html#servlet-authentication-usernamepasswordauthenticationfilter)
+- `DefaultLoginPageGeneratingFilter`
+- `DefaultLogoutPageGeneratingFilter`
+- `ConcurrentSessionFilter`
+- [`DigestAuthenticationFilter`](https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/digest.html#servlet-authentication-digest)
+- `BearerTokenAuthenticationFilter`
+- [`BasicAuthenticationFilter`](https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/basic.html#servlet-authentication-basic)
+- [RequestCacheAwareFilter](https://docs.spring.io/spring-security/reference/servlet/architecture.html#requestcacheawarefilter)
+- `SecurityContextHolderAwareRequestFilter`
+- `JaasApiIntegrationFilter`
+- `RememberMeAuthenticationFilter`
+- `AnonymousAuthenticationFilter`
+- `OAuth2AuthorizationCodeGrantFilter`
+- `SessionManagementFilter`
+- [`ExceptionTranslationFilter`](https://docs.spring.io/spring-security/reference/servlet/architecture.html#servlet-exceptiontranslationfilter)
+- [`FilterSecurityInterceptor`](https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-requests.html#servlet-authorization-filtersecurityinterceptor)
+- `SwitchUserFilter`
