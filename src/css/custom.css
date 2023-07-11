@@ -1,0 +1,131 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #2e8555;
+  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #33925d;
+  --ifm-color-primary-lighter: #359962;
+  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.navbar {
+  height: 60px;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.navbar input {
+  height: 30px;
+  line-height: 30px;
+  width: 250px;
+}
+
+.header-github-link {
+  font-size: 1.5rem;
+}
+
+.navbar__logo {
+  height: 3rem;
+}
+
+.theme-doc-sidebar-menu {
+  padding-left: 20px;
+  font-size: 1.8rem !important;
+}
+
+.theme-doc-sidebar-menu > li > a {
+  padding: 10px !important;
+  font-size: 15px !important;
+}
+
+.theme-doc-sidebar-menu > li > div > a {
+  padding: 10px !important;
+  font-size: 15px !important;
+}
+
+.theme-doc-sidebar-menu > li > ul > li > a {
+  padding: 10px !important;
+  font-size: 15px !important;
+}
+
+article {
+  font-size: 15px;
+}
+
+.theme-doc-sidebar-container {
+  font-size: 16px;
+}
+
+.theme-doc-toc-desktop {
+  float: right;
+}
+
+.table-of-contents {
+  font-size: 14px !important;
+}
+
+code {
+  border: #dadde1 dashed thin !important;
+  margin-bottom: 30px !important;
+  background-color: #dadde1 !important;
+}
+
+td > code {
+  border: none !important;
+  background-color: white !important;
+}
+
+blockquote {
+  background-color: #ebedf0 !important;
+  padding: 10px !important;
+  font-weight: 900 !important;
+  color: green !important;
+}
+
+h2 {
+  margin: 50px auto 30px !important;
+  color: #3ecc5f !important;
+}
+h3 {
+  margin: 40px auto 10px !important;
+  color: purple !important;
+}
+h1 {
+  display: none !important;
+}
+
+article .markdown ul {
+  margin-left: 8rem;
+}
+
+.task-list-item p {
+  color: red;
+  font-weight: 900;
+  font-size: 1.8rem;
+}
+
+strong {
+  font-size: 2rem;
+  font-weight: 900;
+}

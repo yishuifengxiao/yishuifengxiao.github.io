@@ -1,0 +1,18 @@
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.featureSvg {
+  height: 200px;
+  width: 200px;
+}
+
+.tip {
+  padding-top: 3rem;
+  text-align: center;
+  font-size: 3rem;
+  color: grey;
+}
