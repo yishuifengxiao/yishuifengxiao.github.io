@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[2005],{26620:e=>{e.exports=JSON.parse('{"label":"JAVA","permalink":"/code-snippet/tags/java","allTagsPath":"/code-snippet/tags","count":1,"items":[{"id":"java-code","title":"javad\u4ee3\u7801\u7247\u6bb5","description":"java\u8c03\u7528maven","permalink":"/code-snippet/java-code"}]}')}}]);
