@@ -74,8 +74,7 @@ const config = {
           alt: "My Site Logo",
           src: "img/logo.svg",
         },
-        items: [
-          {
+        items: [{
             label: "通用工具",
             to: "/common-tool",
             position: "left",
@@ -88,6 +87,11 @@ const config = {
           {
             label: "代码片段",
             to: "/code-snippet",
+            position: "left",
+          },
+          {
+            label: "面试题",
+            to: "/interview_questions",
             position: "left",
           },
           {
@@ -105,29 +109,23 @@ const config = {
       },
       footer: {
         style: "dark",
-        links: [
-          {
+        links: [{
             title: "Docs",
-            items: [
-              {
-                label: "快速开始",
-                to: "/docs/intro",
-              },
-            ],
+            items: [{
+              label: "快速开始",
+              to: "/docs/intro",
+            }, ],
           },
           {
             title: "Community",
-            items: [
-              {
-                label: "Discord",
-                href: "https://docusaurus.io/zh-CN/docs/configuration",
-              },
-            ],
+            items: [{
+              label: "Discord",
+              href: "https://docusaurus.io/zh-CN/docs/configuration",
+            }, ],
           },
           {
             title: "More",
-            items: [
-              {
+            items: [{
                 label: "Blog",
                 to: "/blog",
               },
@@ -204,6 +202,18 @@ const config = {
         routeBasePath: "code-snippet",
         sidebarPath: require.resolve("./sidebars.js"),
         // editUrl: "http://www.yishuifengxiao.com",
+        showLastUpdateAuthor: true,
+        showLastUpdateTime: true,
+        breadcrumbs: false,
+      },
+    ],
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "interview_questions",
+        path: "wiki/interview_questions",
+        routeBasePath: "interview_questions",
+        sidebarPath: require.resolve("./sidebars.js"),
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
         breadcrumbs: false,
